@@ -23,7 +23,7 @@ public class HealingSpell extends Spell {
     @Override
     public String toString() {
         return String.format(
-                "AttackSpells { name= %s, recovery= $d, life= %d, magicPower== %d }",
+                "Hechizo de sanación { nombre= %s, recuperación= $d, energía mágica== %d } \n",
                 name,
                 recovery,
                 magicPower

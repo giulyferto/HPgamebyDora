@@ -173,8 +173,10 @@ public class GamePlay {
     public void loadSpellCharacters() {
         System.out.println("\n\tJugador 1... Escoge 6 hechizos: \n");
         chooseSpells(playerOne);
+        System.out.println(playerOne.getSpells());
         System.out.println("\n\tJugador 2... Escoge 6 hechizos: \n");
         chooseSpells(playerTwo);
+        System.out.println(playerTwo.getSpells());
     }
 
     public void chooseSpells(Character character) {
@@ -324,7 +326,7 @@ public class GamePlay {
                 System.out.println("Opcion incorrecta.");
         }
         return spell;
-    }
+    } // revisar que no se setea el atributo recovery sino magicpower
 
     public RecoverySpell getRecoverySpell(Scanner keyboard) {
 
@@ -375,7 +377,7 @@ public class GamePlay {
                 System.out.println("Opcion incorrecta.");
         }
         return spell;
-    }
+    } // no entiendo diferencia de los atributos con hechizos anteriores.
 
     public void gameStarting () {
     // Es un ciclo que durará hasta que uno de los jugadores muera y se realizará por turnos (magicEnergy = 0)
@@ -383,10 +385,14 @@ public class GamePlay {
         // hacer la elección del hechizo que desea realizar (spellCasting())
         // y todo lo que conlleva este hechizo. Luego de cada turno, se debe validar si
         //  el oponente ya está muerto, en caso afirmativo, se debe terminar el ciclo y por ende el proceso
+        //mago oscuro o elfo libre (determinar por selección de hechizoz: cruciatus, avadakedavra e imperio JUNTOS).
     }
 
     public void spellCasting () {
         //hacer la elección del hechizo que desea realizar
+        //seleccionar ubicación donde se arrojara el hechizo
+        //setear los atributos del jugador que afecta ese hechizo usado
+        //setear atributos del otro jugador si esta en la posición en la que se lanzo el hechizo
     }
 
     public void showWinner () {

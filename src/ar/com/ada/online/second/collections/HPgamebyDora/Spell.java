@@ -64,8 +64,9 @@ public class Spell {
     @Override
     public String toString() {
         return String.format(
-                "Spell { name= %s, recovery= $d, life= %d, magicPower== %d}",
+                "Spell { name= %s, damage= $d, recovery= %d, magicPower== %d}",
                 name,
+                damage,
                 recovery,
                 magicPower
         );

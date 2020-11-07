@@ -171,7 +171,9 @@ public class GamePlay {
     }
 
     public void loadSpellCharacters() {
+        System.out.println("\n\tJugador 1... Escoge 6 hechizos: \n");
         chooseSpells(playerOne);
+        System.out.println("\n\tJugador 2... Escoge 6 hechizos: \n");
         chooseSpells(playerTwo);
     }
 

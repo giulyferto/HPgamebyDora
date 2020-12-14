@@ -3,31 +3,31 @@ package ar.com.ada.online.second.collections.HPgamebyDora;
 import java.util.Objects;
 
 public class Wand {
-    private String wandName;
-    private Integer wandPower;
+    private String name;
+    private Integer power;
 
     public Wand() {
     }
 
-    public Wand(String wandName, Integer wandPower) {
-        this.wandName = wandName;
-        this.wandPower = wandPower;
+    public Wand(String name, Integer power) {
+        this.name = name;
+        this.power = power;
     }
 
-    public String getWandName() {
-        return wandName;
+    public String getName() {
+        return name;
     }
 
-    public void setWandName(String wandName) {
-        this.wandName = wandName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getWandPower() {
-        return wandPower;
+    public Integer getPower() {
+        return power;
     }
 
-    public void setWandPower(Integer wandPower) {
-        this.wandPower = wandPower;
+    public void setPower(Integer power) {
+        this.power = power;
     }
 
     @Override
@@ -35,13 +35,13 @@ public class Wand {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Wand that = (Wand) obj;
-        return wandName.equals(that.wandName) &&
-                wandPower.equals(that.wandPower);
+        return name.equals(that.name) &&
+                power.equals(that.power);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(wandName, wandPower);
+        return Objects.hash(name, power);
     }
 
 
@@ -49,8 +49,8 @@ public class Wand {
     public String toString() {
         return String.format(
                 "Wand{ name= %s, power= %d}",
-                wandName,
-                wandPower
+                name,
+                power
         );
     }
 }

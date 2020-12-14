@@ -8,11 +8,14 @@ public abstract class Character {
     protected char location;
     protected Integer life = 100;
     protected Integer magicEnergy = 100;
-    protected Set<Spell> spells;
-
+    public String spells; //Tipo lista
+    protected Set<Spell> spellSet;
+//Constructor vacio
 
     public Character() {
     }
+
+//getter and setters
 
     public String getName() {
         return name;
@@ -46,29 +49,56 @@ public abstract class Character {
         this.magicEnergy = magicEnergy;
     }
 
-    public Set<Spell> getSpells() {
-        return spells;
+    public Set<Spell> getSpellSet() {
+        return spellSet;
     }
 
-    public void setSpells(Set<Spell> spells) {
-        this.spells = spells;
+    public void setSpellSet(Set<Spell> spellSet) {
+        this.spellSet = spellSet;
     }
 
-    public abstract void attack();
 
-    public abstract void heal();
+    public Integer healYourself(Integer recovery) {
+        setLife(life += recovery);
+        if (life >100){
+            life = 100;
+        }
+        return life; //No se si retorna o no
+    }
 
-    public abstract void recovery();
+    public void recoverYourself(Integer magicPower) {
+        magicEnergy -= magicPower;
+    }
 
-    public abstract void receiveAttack();
+    public void receiveAttack(Integer damage, Integer magicPower, char position) {
+        if (position == location) {
+            life -= damage;
+            if (life < 0) {
+                System.out.println("Tu oponente te ha dado y ha acabado con tu vida");
+            } else {
+                System.out.println("Tu oponente te ha dado! Tu nivel de vida ahora es de " + life);
+            }
+        } else {
+            System.out.println("Tu oponente ha disparado un hechizo pero no te ha alcanzado!!");
+        }
+    }
 
-    public abstract void isAlive();
+    public Boolean isAlive() {
+        return this.life > 0;
+    }
 
-    public abstract void addSpell();
 
-    public abstract void characterStatus();
+    public boolean isDarkOrFree() {
+        int counter = 0;
+        for (Spell spell : spellSet) {
+            if (spell instanceof AttackSpell) {
+                counter++;
+            }
+        }
+        return counter >= 3; // se agrego el igual.
+    }
 
-    public abstract void darkOrFree();
+    public abstract void setSpells(Set<Spell> spells);
 
     @Override
     public boolean equals(Object obj) {
@@ -78,18 +108,18 @@ public abstract class Character {
         return location == that.location &&
                 name.equals(that.name) &&
                 life.equals(that.life) &&
-                magicEnergy.equals(that.magicEnergy) && spells.equals(that.spells);
+                magicEnergy.equals(that.magicEnergy);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, location, life, magicEnergy,spells);
+        return Objects.hash(name, location, life, magicEnergy);
     }
 
     @Override
-    public String toString() {
+    public String toString() { //cambio de $c a %s porque sino genera error, igual en las subclases.
         return String.format(
-                "Character{ name= %s, location= $s, life= %d, magicEnergy= %d, spells= %s }",
+                "Character{ name= %s, location= %s, life= %d, magicEnergy= %d, spells = %s}",
                 name,
                 location,
                 life,
@@ -98,4 +128,5 @@ public abstract class Character {
         );
 
     }
+
 }

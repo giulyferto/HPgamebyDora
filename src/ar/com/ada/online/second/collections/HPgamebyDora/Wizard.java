@@ -1,58 +1,37 @@
 package ar.com.ada.online.second.collections.HPgamebyDora;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class Wizard extends Character {
-    protected Wand wizardsWand;
+    protected Wand wand;
 
-    public Wizard() { super();}
 
-    public Wand getWizardsWand() {
-        return wizardsWand;
+    public Wizard() {
+        super();
     }
 
-    public Wand setWizardsWand(Wand wand) { return wizardsWand;
+    public Wand getWand() {
+        return wand;
+    }
+
+    public void setWand(Wand wand) {
+        this.wand = wand;
+    }
+
+    //Se implementan metodos de la clase
+    @Override
+    public void recoverYourself(Integer magicPower) {
     }
 
     @Override
-    public void attack() {
-
+    public void receiveAttack(Integer damage, Integer magicPower, char position) {
     }
 
     @Override
-    public void heal() {
-
+    public void setSpells(Set<Spell> spells) {
     }
 
-    @Override
-    public void recovery() {
-
-    }
-
-    @Override
-    public void receiveAttack() {
-
-    }
-
-    @Override
-    public void isAlive() {
-
-    }
-
-    @Override
-    public void addSpell() {
-
-    }
-
-    @Override
-    public void characterStatus() {
-
-    }
-
-    @Override
-    public void darkOrFree() {
-
-    }
     //hashCode equals and toString
 
     @Override
@@ -60,7 +39,7 @@ public class Wizard extends Character {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Wizard that = (Wizard) obj;
-        return super.equals(obj);
+        return super.equals(obj) && wand.equals(that.wand);
     }
 
     @Override
@@ -71,13 +50,13 @@ public class Wizard extends Character {
     @Override
     public String toString() {
         return String.format(
-                "Wizard { name= %s, location= $s, life= %d, magicEnergy= %d, spells= %d, wand= %s }", //preguntar a Vlady %s
+                "Wizard{ name= %s, location= %s, life= %d, magicEnergy= %d, spells= %s, wand= %s}",
                 name,
                 location,
                 life,
                 magicEnergy,
                 spells,
-                wizardsWand
+                wand
         );
     }
 }

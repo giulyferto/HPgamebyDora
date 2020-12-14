@@ -5,10 +5,14 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        Scanner keyboard = new Scanner(System.in);
 
-        GamePlay game = new GamePlay();
-        game.ChoosePlayer();
-        game.loadSpellCharacters();
+        GamePlay gamePlay = new GamePlay();
+        //Se ejecuta el metodo una vez
+        gamePlay.choosePlayer();
+        gamePlay.loadSpellCharacters();
+        gamePlay.goToFight();
+        gamePlay.showWinner();
 
     }
 }

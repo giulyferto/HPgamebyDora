@@ -5,9 +5,8 @@ import java.util.Objects;
 public class Spell {
     protected String name;
     protected Integer damage;
-    protected Integer recovery;
-    protected Integer magicPower;
-    private Integer counter = 0;
+    protected  Integer recovery;
+    protected  Integer magicPower;
 
     public Spell() {
     }
@@ -18,6 +17,14 @@ public class Spell {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getDamage() {
+        return damage;
+    }
+
+    public void setDamage(Integer damage) {
+        this.damage = damage;
     }
 
     public Integer getRecovery() {
@@ -36,15 +43,6 @@ public class Spell {
         this.magicPower = magicPower;
     }
 
-    public Integer getDamage() { return damage; }
-
-    public void setDamage(Integer damage) { this.damage = damage; }
-
-    //Metodo para contar el tipo de hechizos de ataque
-    public Integer addAttackSpell() {
-        counter++;
-        return counter;
-    }
 
     @Override
     public int hashCode() {

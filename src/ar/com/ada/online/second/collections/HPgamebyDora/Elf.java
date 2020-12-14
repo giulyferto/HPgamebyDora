@@ -1,52 +1,32 @@
 package ar.com.ada.online.second.collections.HPgamebyDora;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class Elf extends Character {
     public Elf() {
         super();
     }
 
+
     //Se implementan metodos de la clase
+
     @Override
-    public void attack() {
+    public void recoverYourself(Integer magicPower) {
 
     }
 
     @Override
-    public void heal() {
+    public void receiveAttack(Integer damage, Integer magicPower, char position) {
 
     }
+
 
     @Override
-    public void recovery() {
+    public void setSpells(Set<Spell> spells) {
 
     }
 
-    @Override
-    public void receiveAttack() {
-
-    }
-
-    @Override
-    public void isAlive() {
-
-    }
-
-    @Override
-    public void addSpell() {
-
-    }
-
-    @Override
-    public void characterStatus() {
-
-    }
-
-    @Override
-    public void darkOrFree() {
-
-    }
     //hashCode equals and toString
     @Override
     public boolean equals(Object obj) {
@@ -63,7 +43,7 @@ public class Elf extends Character {
     @Override
     public String toString() {
         return String.format(
-                "Elf { name= %s, location= $s, life= %d, magicEnergy= %d, spells= %d }",
+                "Elf { name= %s, location= %s, life= %d, magicEnergy= %d, spells= %s}",
                 name,
                 location,
                 life,

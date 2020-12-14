@@ -3,9 +3,26 @@ package ar.com.ada.online.second.collections.HPgamebyDora;
 import java.util.Objects;
 
 public class AttackSpell extends Spell {
+    public static Integer counter = 0;
+    //public static int addAttackSpell;
+
 
     public AttackSpell() {
         super();
+    }
+    public Integer getCounter() {
+        return counter;
+    }
+
+    public void setCounter(Integer counter) {
+        this.counter = counter;
+    }
+
+    //Metodo para contar el tipo de hechizos de ataque
+    public void addAttackSpell(Spell spell) {
+        if (spell instanceof AttackSpell) {
+            counter++;
+        }
     }
 
     @Override
@@ -24,11 +41,10 @@ public class AttackSpell extends Spell {
     @Override
     public String toString() {
         return String.format(
-                "Hechizo de ataque { nombre= %s, daño= %d, energía mágica== %d } \n",
+                "AttackSpells { name= %s, recovery= $d, life= %d, magicPower== %d }",
                 name,
-                damage,
+                recovery,
                 magicPower
         );
     }
-
 }

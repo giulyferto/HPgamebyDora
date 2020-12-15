@@ -28,10 +28,6 @@ public class Wizard extends Character {
     public void receiveAttack(Integer damage, Integer magicPower, char position) {
     }
 
-    @Override
-    public void setSpells(Set<Spell> spells) {
-    }
-
     //hashCode equals and toString
 
     @Override
@@ -55,7 +51,7 @@ public class Wizard extends Character {
                 location,
                 life,
                 magicEnergy,
-                spells,
+                getSpellSet(),
                 wand
         );
     }

@@ -5,8 +5,8 @@ import java.util.Objects;
 public class Spell {
     protected String name;
     protected Integer damage;
-    protected  Integer recovery;
-    protected  Integer magicPower;
+    protected Integer recovery;
+    protected Integer magicPower;
 
     public Spell() {
     }
@@ -43,7 +43,6 @@ public class Spell {
         this.magicPower = magicPower;
     }
 
-
     @Override
     public int hashCode() {
         return Objects.hash(name, recovery, magicPower);
@@ -62,7 +61,7 @@ public class Spell {
     @Override
     public String toString() {
         return String.format(
-                "Spell { name= %s, damage= $d, recovery= %d, magicPower== %d}",
+                "Spell { name= %s, damage= %d, recovery= %d, magicPower= %d}",
                 name,
                 damage,
                 recovery,

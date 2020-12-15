@@ -31,7 +31,7 @@ public class RecoverySpell extends Spell{
     @Override
     public String toString() {
         return String.format(
-                "Hechizo de recuperación { nombre= %s, energía mágica== %d } \n",
+                "Hechizo de recuperación { nombre= %s, energía mágica= %d } \n",
                 name,
                 magicPower
         );

@@ -449,11 +449,10 @@ public class GamePlay {
             System.out.println("No tiene  hechizos de Ataque\n");
             getPlayersActions(playerInTurn, opponent);//Estaria bueno que si no hay hechizos de ataque vuelva a este metodo. TODO: CHECK.
         } else {
-
             System.out.println("Elija un hechizo: ");
             for (int i = 0; i < attackSpells.size(); i++) {
                 System.out.println((i + 1) + ") " + attackSpells.get(i).getName());
-            }
+            }}
 
             Spell spell = null;
             int option = keyboard.nextInt();
@@ -484,14 +483,13 @@ public class GamePlay {
                     opponent.receiveAttack(spell.getDamage() + 10 + wand.getPower(), spell.getMagicPower(), position);
                 } else { //Por si es un elfo
                     System.out.println("Se te suman 5 puntos a tu ataque por ser un Elfo libre!");
-                    opponent.receiveAttack(spell.getDamage() + 5, spell.getMagicPower(), position);
+                    opponent.receiveAttack(spell.getDamage() + 5, spell.getMagicPower(), position); //TODO: REVISAR ESTE METODO NO ESTA DEVOLVIENDO LO QUE DEBE
                 }
             } else {
                 opponent.receiveAttack(spell.getDamage(), spell.getMagicPower(), position);
             }
         }
         //TODO: Estaria bueno avisarle al que dispara el hechizo si le dio o no al oponente
-    }
 
     private void healYourself(Character playerInTurn) {
         List<Spell> healingSpells = new ArrayList<>();

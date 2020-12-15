@@ -41,9 +41,9 @@ public class AttackSpell extends Spell {
     @Override
     public String toString() {
         return String.format(
-                "AttackSpells { name= %s, recovery= $d, life= %d, magicPower== %d }",
+                "Hechizo de Ataque { nombre= %s, daño= %d, energía mágica= %d }",
                 name,
-                recovery,
+                damage,
                 magicPower
         );
     }

@@ -8,7 +8,6 @@ public abstract class Character {
     protected char location;
     protected Integer life = 100;
     protected Integer magicEnergy = 100;
-    public String spells; //Tipo lista
     protected Set<Spell> spellSet;
 //Constructor vacio
 
@@ -71,22 +70,24 @@ public abstract class Character {
     }
 
     public void receiveAttack(Integer damage, Integer magicPower, char position) {
-        if (position == location) {
-            life -= damage;
-            if (life < 0) {
+        if (position == getLocation()) {
+            int opponentsMagicEnergy = magicEnergy - magicPower; // TODO: CHEQUEAR SI ESTO ESTA FUNCIONANDO
+            setMagicEnergy(opponentsMagicEnergy);
+            int opponentsLife = life - damage;
+            setLife(opponentsLife);
+            if (getLife() < 0) {
                 System.out.println("Tu oponente te ha dado y ha acabado con tu vida");
             } else {
-                System.out.println("Tu oponente te ha dado! Tu nivel de vida ahora es de " + life);
+                System.out.println("Tu oponente te ha dado! Tu nivel de vida ahora es de " + getLife());
             }
         } else {
             System.out.println("Tu oponente ha disparado un hechizo pero no te ha alcanzado!!");
         }
     }
 
-    public Boolean isAlive() {
+    public Boolean isAlive() { // TODO: REVISAR ESTE METODO NO ESTA FUNCIONANDO
         return this.life > 0;
     }
-
 
     public boolean isDarkOrFree() {
         int counter = 0;
@@ -95,10 +96,8 @@ public abstract class Character {
                 counter++;
             }
         }
-        return counter >= 3; // se agrego el igual.
+        return counter > 3;
     }
-
-    public abstract void setSpells(Set<Spell> spells);
 
     @Override
     public boolean equals(Object obj) {
@@ -124,7 +123,7 @@ public abstract class Character {
                 location,
                 life,
                 magicEnergy,
-                spells
+                getSpellSet()
         );
 
     }

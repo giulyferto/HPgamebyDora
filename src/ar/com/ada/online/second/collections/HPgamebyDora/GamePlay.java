@@ -7,7 +7,6 @@ public class GamePlay {
     private Character playerTwo;
     Scanner keyboard = new Scanner(System.in);
 
-
     public void choosePlayer() {
         System.out.println("Seleccione al jugador uno: ");
         playerOne = chooseCharacter();
@@ -113,18 +112,17 @@ public class GamePlay {
     private char getLocation() { //Comente el do - while porque se metia en un loop eterno. CHECK
         char location;
         do {
-        System.out.println("Seleccione su ubicacion: ");
-        System.out.println("A B C");
-        location = keyboard.next().charAt(0);
-        if (location == 'A' || location == 'B' || location == 'C') {
-            System.out.println("Usted eligio la locacion " + location);
-        } else {
-            System.out.println("Opcion incorrecta");
-        }
+            System.out.println("Seleccione su ubicacion: ");
+            System.out.println("A B C");
+            location = keyboard.next().charAt(0);
+            if (location == 'A' || location == 'B' || location == 'C') {
+                System.out.println("Usted eligio la locacion " + location);
+            } else {
+                System.out.println("Opcion incorrecta");
+            }
         } while (location != 'A' && location != 'B' && location != 'C'); //cambio de "o" por "y" para que no se produjera bucle en el do
         return location;
     }
-
 
     public Wand selectionOfWand() {
         Wand wand = new Wand();
@@ -227,7 +225,7 @@ public class GamePlay {
 
             System.out.println("Desea agregar otro Hechizo?: \n\t1) Si\n\t2) No");
             int toBeContinue = keyboard.nextInt();
-            if (toBeContinue == 2) break spellFor; // REVISAR porque corta ciclo pero con error, debe continuar juego.
+            if (toBeContinue == 2) break spellFor;
         }
         character.setSpellSet(spells); //se agrego correctamente el metodo
     }
@@ -390,22 +388,25 @@ public class GamePlay {
 
     public void goToFight() {
         do {
-            System.out.println("Turno del juagdor 1");
+            System.out.println("Turno del jugador 1");
             turn(playerOne, playerTwo);
             if (playerTwo.isAlive()) break;
 
-            System.out.println("Turno del juagdor 2");
+            System.out.println("Turno del jugador 2");
             turn(playerTwo, playerOne);
-            // if (playerOne.isAlive()) break;
-        } while (playerOne.isAlive()); // o (true)
+            if (playerOne.isAlive()) break;
+        } while (true); // o (playerOne.isAlive())
     }
 
     public void turn(Character playerInTurn, Character opponent) {
-        showStatus(playerInTurn);
-        getPlayersActions(playerInTurn, opponent);
+        do {
+            showStatus(playerInTurn);
+            getPlayersActions(playerInTurn, opponent);
+        } while (playerInTurn.isAlive());
+
     }
 
-    public Integer getPlayersActions(Character playerInTurn, Character opponent) {
+    public void getPlayersActions(Character playerInTurn, Character opponent) {
         boolean aux;
         do {
             aux = false;
@@ -431,65 +432,66 @@ public class GamePlay {
             }
 
         } while (aux);
-        playerInTurn.setLocation(getLocation());
-        return null; //Por que retorna null?
+
+        System.out.println("Quiere cambiar de ubicacion? \n\t 1) Si \n\t 2) No");
+        int answer = keyboard.nextInt();
+        if (answer == 1)
+            playerInTurn.setLocation(getLocation());
+
     }
 
     private void attackOpponent(Character playerInTurn, Character opponent) {
         List<Spell> attackSpells = new ArrayList<>();
         Set<Spell> spells = playerInTurn.getSpellSet();
-        int counter = 0;
+
         for (Spell spell : spells) {
-            if (spell instanceof AttackSpell) {
+            if (spell instanceof AttackSpell)
                 attackSpells.add(spell);
-                counter++;
-            }
         }
-        if (counter == 0) {
+        if (attackSpells.size() == 0) {
             System.out.println("No tiene  hechizos de Ataque\n");
-            getPlayersActions(playerInTurn, opponent);//Estaria bueno que si no hay hechizos de ataque vuelva a este metodo. TODO: CHECK.
         } else {
             System.out.println("Elija un hechizo: ");
             for (int i = 0; i < attackSpells.size(); i++) {
-                System.out.println((i + 1) + ") " + attackSpells.get(i).getName());
-            }}
-
-            Spell spell = null;
-            int option = keyboard.nextInt();
-            if (option <= attackSpells.size() + 1) {
-                spell = attackSpells.get(option - 1);
-            }
-
-            System.out.println("A que posicion desea realizar el ataque? (A, B, C) ");
-            char position = keyboard.next().charAt(0);
-            //Esto se hace para restar la energia magica del hechizo con la energia magica del personaje
-            //
-            if (playerInTurn.magicEnergy < spell.getMagicPower()) {
-                if (playerInTurn.magicEnergy < 0) {
-                    playerInTurn.magicEnergy = 0;
-                    System.out.println("No tienes nivel de energia magica suficiente para ejecutar este hechizo, se te añadiran 10 ptos de energia magica adicionales por esto");
-                    playerInTurn.magicEnergy = playerInTurn.magicEnergy + 10;
-                } else  {
-                    System.out.println("No tienes nivel de energia magica suficiente para ejecutar este hechizo, se te añadiran 10 ptos de energia magica adicionales por esto");
-                    playerInTurn.magicEnergy = playerInTurn.magicEnergy + 10;
-                }
-            } else {
-                playerInTurn.magicEnergy -= spell.magicPower;
-            }
-            if (playerInTurn.isDarkOrFree()) {
-                if (playerInTurn instanceof Wizard) {
-                    Wand wand = ((Wizard) playerInTurn).getWand();
-                    System.out.println("Se te sumaran 10 puntos a tu ataque por ser un Mago Oscuro, mas " + wand.getPower() + " puntos por tu varita " + wand.getName() + "\n");
-                    opponent.receiveAttack(spell.getDamage() + 10 + wand.getPower(), spell.getMagicPower(), position);
-                } else { //Por si es un elfo
-                    System.out.println("Se te suman 5 puntos a tu ataque por ser un Elfo libre!");
-                    opponent.receiveAttack(spell.getDamage() + 5, spell.getMagicPower(), position); //TODO: REVISAR ESTE METODO NO ESTA DEVOLVIENDO LO QUE DEBE
-                }
-            } else {
-                opponent.receiveAttack(spell.getDamage(), spell.getMagicPower(), position);
+                System.out.println((i + 1) + ") " + attackSpells.get(i).getName() + attackSpells.get(i).getDamage() + " de daño, y" + attackSpells.get(i).getMagicPower() + " energia magica requerida.");
             }
         }
-        //TODO: Estaria bueno avisarle al que dispara el hechizo si le dio o no al oponente
+
+        Spell spell = null;
+        int option = keyboard.nextInt();
+        if (option <= attackSpells.size() + 1) {
+            spell = attackSpells.get(option - 1);
+        }
+
+        System.out.println("A que posicion desea realizar el ataque? (A, B, C) ");
+        char position = keyboard.next().charAt(0);
+        //Esto se hace para restar la energia magica del hechizo con la energia magica del personaje
+        //
+        if (playerInTurn.magicEnergy < spell.getMagicPower()) {
+            if (playerInTurn.magicEnergy < 0) {
+                playerInTurn.magicEnergy = 0;
+                System.out.println("No tienes nivel de energia magica suficiente para ejecutar este hechizo, se te añadiran 10 ptos de energia magica adicionales por esto");
+                playerInTurn.magicEnergy = playerInTurn.magicEnergy + 10;
+            } else {
+                System.out.println("No tienes nivel de energia magica suficiente para ejecutar este hechizo, se te añadiran 10 ptos de energia magica adicionales por esto");
+                playerInTurn.magicEnergy = playerInTurn.magicEnergy + 10;
+            }
+        } else {
+            playerInTurn.magicEnergy -= spell.magicPower;
+        }
+        if (playerInTurn.isDarkOrFree()) {
+            if (playerInTurn instanceof Wizard) {
+                Wand wand = ((Wizard) playerInTurn).getWand();
+                System.out.println("Se te sumaran 10 puntos a tu ataque por ser un Mago Oscuro, mas " + wand.getPower() + " puntos por tu varita " + wand.getName() + "\n");
+                opponent.receiveAttack(spell.getDamage() + 10 + wand.getPower(), position);
+            } else { //Por si es un elfo
+                System.out.println("Se te suman 5 puntos a tu ataque por ser un Elfo libre!");
+                opponent.receiveAttack(spell.getDamage() + 5, position); //TODO: REVISAR ESTE METODO NO ESTA DEVOLVIENDO LO QUE DEBE
+            }
+        } else {
+            opponent.receiveAttack(spell.getDamage(), position);
+        }
+    }
 
     private void healYourself(Character playerInTurn) {
         List<Spell> healingSpells = new ArrayList<>();
@@ -508,7 +510,7 @@ public class GamePlay {
 
             System.out.println("Elija un hechizo: ");
             for (int i = 0; i < healingSpells.size(); i++) {
-                System.out.println((i + 1) + ") " + healingSpells.get(i).getName());
+                System.out.println((i + 1) + ") " + healingSpells.get(i).getName() + healingSpells.get(i).getRecovery() + " de sanacion, y" + healingSpells.get(i).getMagicPower() + " energia magica requerida.");
             }
 
             //Recordar que los puntos de vida no pueden superar los 100 puntos
@@ -522,7 +524,7 @@ public class GamePlay {
                     playerInTurn.magicEnergy = 0;
                     System.out.println("No tienes nivel de energia magica suficiente para ejecutar este hechizo, se te añadiran 10 ptos de energia magica adicionales por esto");
                     playerInTurn.magicEnergy = playerInTurn.magicEnergy + 10;
-                } else  {
+                } else {
                     System.out.println("No tienes nivel de energia magica suficiente para ejecutar este hechizo, se te añadiran 10 ptos de energia magica adicionales por esto");
                     playerInTurn.magicEnergy = playerInTurn.magicEnergy + 10;
                 }
@@ -556,7 +558,7 @@ public class GamePlay {
 
             System.out.println("Elija un hechizo: ");
             for (int i = 0; i < recoverySpells.size(); i++) {
-                System.out.println((i + 1) + ") " + recoverySpells.get(i).getName());
+                System.out.println((i + 1) + ") " + recoverySpells.get(i).getName() + recoverySpells.get(i).getRecovery() + " de sanacion, y" + recoverySpells.get(i).getMagicPower() + " energia magica requerida.");
             }
             //Recordar que los puntos de energia magica no pueden superar los 100 puntos
             RecoverySpell spell = null;
@@ -569,7 +571,7 @@ public class GamePlay {
                     playerInTurn.magicEnergy = 0;
                     System.out.println("No tienes nivel de energia magica suficiente para ejecutar este hechizo, se te añadiran 10 ptos de energia magica adicionales por esto");
                     playerInTurn.magicEnergy = playerInTurn.magicEnergy + 10;
-                } else  {
+                } else {
                     System.out.println("No tienes nivel de energia magica suficiente para ejecutar este hechizo, se te añadiran 10 ptos de energia magica adicionales por esto");
                     playerInTurn.magicEnergy = playerInTurn.magicEnergy + 10;
                 }
@@ -606,9 +608,15 @@ public class GamePlay {
 
     public void showWinner() {
         //Muestra por pantalla el nombre del jugador que ganó
-        Character winner = playerOne.isAlive() ? playerOne : playerTwo;
-        System.out.println("El ganador es " + winner);
-        System.out.println("\n \t Estado del jugador 1:\n"); // se agrego la invocacion del metodo status por cada jugador.
+        Character winner;
+        if (playerOne.isAlive()) {
+            winner = playerTwo;
+        } else {
+            winner = playerOne;
+        }
+        //Character winner = playerOne.isAlive() ? playerTwo : playerOne;
+        System.out.println("El ganador es " + winner.getName());
+        System.out.println("\n \t Estado del jugador 1:\n");
         showStatus(playerOne);
         System.out.println("\n \t Estado del jugador 2:\n");
         showStatus(playerTwo);

@@ -3,18 +3,9 @@ package ar.com.ada.online.second.collections.HPgamebyDora;
 import java.util.Objects;
 
 public class Elf extends Character {
+
     public Elf() {
         super();
-    }
-
-    //Se implementan metodos de la clase
-
-    @Override
-    public void recoverYourself(Integer magicPower) {
-    }
-
-    @Override
-    public void receiveAttack(Integer damage, Integer magicPower, char position) {
     }
 
     //hashCode equals and toString
@@ -25,6 +16,7 @@ public class Elf extends Character {
         Elf that = (Elf) obj;
         return super.equals(obj);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode());

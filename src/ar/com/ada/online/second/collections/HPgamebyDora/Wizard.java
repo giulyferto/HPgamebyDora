@@ -1,11 +1,9 @@
 package ar.com.ada.online.second.collections.HPgamebyDora;
 
 import java.util.Objects;
-import java.util.Set;
 
 public class Wizard extends Character {
     protected Wand wand;
-
 
     public Wizard() {
         super();
@@ -17,15 +15,6 @@ public class Wizard extends Character {
 
     public void setWand(Wand wand) {
         this.wand = wand;
-    }
-
-    //Se implementan metodos de la clase
-    @Override
-    public void recoverYourself(Integer magicPower) {
-    }
-
-    @Override
-    public void receiveAttack(Integer damage, Integer magicPower, char position) {
     }
 
     //hashCode equals and toString

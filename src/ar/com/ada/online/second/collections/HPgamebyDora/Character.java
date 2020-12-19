@@ -9,12 +9,13 @@ public abstract class Character {
     protected Integer life = 100;
     protected Integer magicEnergy = 100;
     protected Set<Spell> spellSet;
-//Constructor vacio
+
+    //Constructor vacio
 
     public Character() {
     }
 
-//getter and setters
+    //getter and setters
 
     public String getName() {
         return name;
@@ -56,10 +57,9 @@ public abstract class Character {
         this.spellSet = spellSet;
     }
 
-
     public Integer healYourself(Integer recovery) {
         setLife(life += recovery);
-        if (life >100){
+        if (life > 100) {
             life = 100;
         }
         return life; //No se si retorna o no
@@ -69,24 +69,24 @@ public abstract class Character {
         magicEnergy -= magicPower;
     }
 
-    public void receiveAttack(Integer damage, Integer magicPower, char position) {
+    public void receiveAttack(Integer damage, char position) {
         if (position == getLocation()) {
-            int opponentsMagicEnergy = magicEnergy - magicPower; // TODO: CHEQUEAR SI ESTO ESTA FUNCIONANDO
-            setMagicEnergy(opponentsMagicEnergy);
-            int opponentsLife = life - damage;
-            setLife(opponentsLife);
-            if (getLife() < 0) {
-                System.out.println("Tu oponente te ha dado y ha acabado con tu vida");
+            this.life = this.life - damage;
+            if (this.life < 0) {
+                this.life = 0;
+            }
+            if (isAlive()) {
+                System.out.println("Enhorabuena! ha acertado tu ataque y tu oponente ha muerto!");
             } else {
-                System.out.println("Tu oponente te ha dado! Tu nivel de vida ahora es de " + getLife());
+                System.out.println("Enhorabuena! ha acertado tu ataque! causaste " + damage + " de daño");
             }
         } else {
-            System.out.println("Tu oponente ha disparado un hechizo pero no te ha alcanzado!!");
+            System.out.println("Oops! haz fallado, suerte para la proxima.");
         }
     }
 
-    public Boolean isAlive() { // TODO: REVISAR ESTE METODO NO ESTA FUNCIONANDO
-        return this.life > 0;
+    public Boolean isAlive() {
+        return this.life <= 0;
     }
 
     public boolean isDarkOrFree() {

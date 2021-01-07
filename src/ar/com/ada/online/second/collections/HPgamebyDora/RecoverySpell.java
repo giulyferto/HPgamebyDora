@@ -2,7 +2,7 @@ package ar.com.ada.online.second.collections.HPgamebyDora;
 
 import java.util.Objects;
 
-public class RecoverySpell extends Spell{
+public class RecoverySpell extends ar.com.ada.online.second.collections.HPgamebyDora.Spell {
  //   private Integer magicPowerRecoverySpell;
     public RecoverySpell() {
     }

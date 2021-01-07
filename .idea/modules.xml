@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/HPgamebyDora.iml" filepath="$PROJECT_DIR$/.idea/HPgamebyDora.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HPgamebyDora.iml" filepath="$PROJECT_DIR$/HPgamebyDora.iml" />
     </modules>
   </component>
 </project>

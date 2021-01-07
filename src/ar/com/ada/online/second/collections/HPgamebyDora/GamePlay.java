@@ -1,5 +1,16 @@
 package ar.com.ada.online.second.collections.HPgamebyDora;
 
+import ar.com.ada.online.second.collections.HPgamebyDora.Wizard;
+import ar.com.ada.online.second.collections.HPgamebyDora.Elf;
+import ar.com.ada.online.second.collections.HPgamebyDora.Main;
+import ar.com.ada.online.second.collections.HPgamebyDora.Character;
+import ar.com.ada.online.second.collections.HPgamebyDora.Wand;
+import ar.com.ada.online.second.collections.HPgamebyDora.AttackSpell;
+import ar.com.ada.online.second.collections.HPgamebyDora.HealingSpell;
+import ar.com.ada.online.second.collections.HPgamebyDora.RecoverySpell;
+import ar.com.ada.online.second.collections.HPgamebyDora.Spell;
+
+
 import java.util.*;
 
 public class GamePlay {
@@ -161,9 +172,9 @@ public class GamePlay {
                 break;
         }
         System.out.println("\t Te ha escogido la " + wand.getName() + " que te añade " + wand.getPower() + " puntos de poder al atacar." + "\n");
-        if (playerOne instanceof Wizard){
+        if (playerOne instanceof Wizard) {
             ((Wizard) playerOne).setWand(wand);
-        } else if (playerTwo instanceof Wizard){
+        } else if (playerTwo instanceof Wizard) {
             ((Wizard) playerTwo).setWand(wand);
         }
         return wand;
@@ -487,12 +498,15 @@ public class GamePlay {
         if (playerInTurn.isDarkOrFree()) {
             if (playerInTurn instanceof Wizard) {
                 Wand wand = ((Wizard) playerInTurn).getWand();
-                System.out.println("Se te sumaran 10 puntos a tu ataque por ser un Mago Oscuro, mas " + wand.getPower() + " puntos por tu varita " + wand.getName() + "\n");
+                System.out.println("Se te sumaran 10 puntos a tu ataque por ser un Mago Oscuro, mas " + ((Wizard) playerInTurn).getWand().getPower() + " puntos por tu varita " + wand.getName() + "\n");
                 opponent.receiveAttack(spell.getDamage() + 10 + ((Wizard) playerInTurn).getWand().getPower(), position);
             } else { //Por si es un elfo
                 System.out.println("Se te suman 5 puntos a tu ataque por ser un Elfo libre!");
                 opponent.receiveAttack(spell.getDamage() + 5, position); //TODO: REVISAR ESTE METODO NO ESTA DEVOLVIENDO LO QUE DEBE
             }
+        } else if (playerInTurn instanceof Wizard) {
+            System.out.println("Se te sumaran" + ((Wizard) playerInTurn).getWand().getPower() + "puntos al atacar por tu varita!");
+            opponent.receiveAttack(spell.getDamage() + ((Wizard) playerInTurn).getWand().getPower(), position);
         } else {
             opponent.receiveAttack(spell.getDamage(), position);
         }
